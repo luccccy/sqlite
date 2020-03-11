@@ -20,23 +20,23 @@ Please remember that each RDBMS has its own specific implementation of SQL synta
 
 **Setup**
 
-Do which sqlite3. You should see the path to the sqlite3 binary. If you do not, do brew install sqlite3 to install it.
+Do *which sqlite3.* You should see the path to the *sqlite3* binary. If you do not, do *brew install sqlite3* to install it.
 
-The SQLite database is just a file. For these exercises you will use the school.db file in the root directory of this repo. From inside the root directory of this repo do sqlite3 school.db. This will start up an interactive SQLite terminal, with the already populated tables from school.db loaded into the session.
+The SQLite database is just a file. For these exercises you will use the *school.db* file in the root directory of this repo. From inside the root directory of this repo do *sqlite3 school.db.* This will start up an interactive SQLite terminal, with the already populated tables from *school.db* loaded into the session.
 
-From inside the sqlite terminal you just opened, do .table to display the tables in the database. You should see several table names (more on tables later) including classes, teachers and more.
+From inside the *sqlite* terminal you just opened, do *.table* to display the tables in the database. You should see several table names (more on tables later) including *classes, teachers* and more.
 
 Exit the terminal with CTRL + d.
 
-If you should happen to modify the database in a way that becomes problematic for you, a pristine copy of it exists in the dbs/ directory of this repo. If needed, simply make a new copy of dbs/school.db and load it into sqlite3.
+If you should happen to modify the database in a way that becomes problematic for you, a pristine copy of it exists in the dbs/ directory of this repo. If needed, simply make a new copy of *dbs/school.db* and load it into *sqlite3.*
 
 **Schema**
 
-Relational data lives inside tables that contain columns and rows. The columns of a table define the properties or attributes of the kind of 'thing' the table is storing, and each row is an instance of this kind of 'thing'.
+Relational data lives inside tables that contain *columns and rows.* The columns of a table define the properties or attributes of the kind of 'thing' the table is storing, and each row is an instance of this kind of 'thing'.
 
-For example, a given table might be meant to store data on songs. The columns of the table are song_name, artist, genre and release_date. Each row represents a given song and contains an entry for each of the columns, like so:
+For example, a given table might be meant to store data on songs. The columns of the table are *song_name, artist, genre and release_date.* Each row represents a given song and contains an entry for each of the columns, like so:
 
-Tables are defined with a schema. A schema defines the name of the table, and also, the details about what kind of data should be stored at each column for that table. The syntax for creating a new table schema is:
+Tables are defined with a *schema.* A schema defines the name of the table, and also, the details about what kind of data should be stored at each column for that table. The syntax for creating a new table schema is:
 ```sql
 CREATE TABLE <table-name> (
   <name-of-column-1> <data-type-of-column> [ADDITIONAL-INFO-ABOUT-THIS-COLUMN],
@@ -90,16 +90,16 @@ By default SELECT will return every row in a table, however, you will frequently
 SELECT <column-name> FROM <table-name>
   WHERE <some-condition-to-limit-by>;
 ```
-A simple condition-to-limit-by is a value for a given column. You can evaluate this value using =, !=, <, >, <=, and >=, amongst others. Chain together your conditions using AND and OR, which behave logically as you are used to from your work with JavaScript. For example, if I wanted to display all the columns from the teachers table where the department id is 1 or 2:
+A simple *condition-to-limit-by* is a value for a given column. You can evaluate this value using =, !=, <, >, <=, and >=, amongst others. Chain together your conditions using AND and OR, which behave logically as you are used to from your work with JavaScript. For example, if I wanted to display all the columns from the teachers table where the department id is 1 or 2:
 
 ```sql
 SELECT * FROM teachers
   WHERE department = 1 OR department = 2;
 ```
-Your turn
+**Your turn**
 
-Display just the name column for all the students whose names are not naomi. (Note, naomi being text, should be placed in single quotes)
-Display the name and department id of teachers whose own id is greater than 2 or whose name is 'fred'
+* Display just the name column for all the students whose names are not naomi. (Note, naomi being text, should be placed in single quotes)
+* Display the name and department id of teachers whose own id is greater than 2 or whose name is 'fred'
 
 **WHERE pattern matching with LIKE**
 
@@ -129,9 +129,10 @@ SELECT * FROM teachers
 ```
 This also is correct and discloses the truth about SQL (which is true in most all programming languages), when your work begins to get more complicated there often is not a single correct way to proceed.
 
-Your turn
-Display just the names of all the teachers whose id is NOT either 1, 2, or 4
-Display just the names of all the teachers whose department is either 1 or 4
+**Your turn**
+
+* Display just the names of all the teachers whose id is NOT either 1, 2, or 4
+* Display just the names of all the teachers whose department is either 1 or 4
 
 **Using IN to compose subqueries** 
 
@@ -167,7 +168,10 @@ SELECT name FROM teachers
 
 **Selecting from multiple tables**
 
-You can select from multiple tables in SQL with the following syntax : SELECT * FROM <table-1>, <table-2> [,<table-n>];.
+You can select from multiple tables in SQL with the following syntax : 
+```javascript
+SELECT * FROM <table-1>, <table-2> [,<table-n>];.
+```
 
 To help gain an intuition about what will happen during a multi-table select statement, display all the rows from departments and then, in a seperate query, all the rows from classes.
 
