@@ -37,7 +37,7 @@ Relational data lives inside tables that contain columns and rows. The columns o
 For example, a given table might be meant to store data on songs. The columns of the table are song_name, artist, genre and release_date. Each row represents a given song and contains an entry for each of the columns, like so:
 
 Tables are defined with a schema. A schema defines the name of the table, and also, the details about what kind of data should be stored at each column for that table. The syntax for creating a new table schema is:
-
+```sql
 CREATE TABLE <table-name> (
   <name-of-column-1> <data-type-of-column> [ADDITIONAL-INFO-ABOUT-THIS-COLUMN],
   <name-of-column-2> <data-type-of-column> [ADDITIONAL-INFO-ABOUT-THIS-COLUMN],
@@ -45,7 +45,7 @@ CREATE TABLE <table-name> (
   <name-of-column-n> <data-type-of-column> [ADDITIONAL-INFO-ABOUT-THIS-COLUMN],
   [OTHER-SCHEMA-DEFINITION-COMMANDS]
 );
-
+```
 
 
 Most SQL implementations ignore insignificant whitespace and also are case insensitive. With that in mind you shouldn't be surprised to see the above in a form that looks more like create table <table-name> (<name-of-column1> <data-type-of-column> [additional-info-about-this-column]);. Notice the ; at the end of these statements. The ; indicates that the statement is complete and is part of the reason why an SQL author can choose to write their SQL on one or many lines.
@@ -86,16 +86,16 @@ SQLite allows you to set a 'mode' for viewing the results of queries, and also p
 **Filtering rows with where**
 
 By default SELECT will return every row in a table, however, you will frequently wish to trim down which rows match your query. One way to do this is with WHERE, using the following syntax:
-
+```sql
 SELECT <column-name> FROM <table-name>
   WHERE <some-condition-to-limit-by>;
-
+```
 A simple condition-to-limit-by is a value for a given column. You can evaluate this value using =, !=, <, >, <=, and >=, amongst others. Chain together your conditions using AND and OR, which behave logically as you are used to from your work with JavaScript. For example, if I wanted to display all the columns from the teachers table where the department id is 1 or 2:
 
-
+```sql
 SELECT * FROM teachers
   WHERE department = 1 OR department = 2;
-
+```
 Your turn
 
 Display just the name column for all the students whose names are not naomi. (Note, naomi being text, should be placed in single quotes)
@@ -107,10 +107,10 @@ Aside from the comparison operators above, you can also use the LIKE keyword, in
 
 For example, to select all the class names that start with the letter 'c':
 
-
+```sql
 SELECT name FROM CLASSES
   WHERE name LIKE 'c%';
-
+```
 **Your turn**
 * Display the id and name of all the students whose names end in 'm'
 * Display all columns for students whose names do not contain the letter 'a'. HINT: a more long-winded way to say "includes the letter 'a'" is "includes 0 or more of any letter followed by an 'a' followed by 0 or more of any letter."
@@ -118,15 +118,15 @@ SELECT name FROM CLASSES
 **Limiting WHERE to a defined set with IN**
 
 Using IN you can filter your query against a set of matches you define, for example, to get the entries for the teachers whose names are either 'pamela' or 'sunny':
-
+```sql
 SELECT * FROM teachers
   WHERE name IN ('pamela', 'sunny');
-
+```
 Perhaps you're thinking you could have done this so:
-
+```sql
 SELECT * FROM teachers
   WHERE name = 'pamela' OR name = 'sunny';
-
+```
 This also is correct and discloses the truth about SQL (which is true in most all programming languages), when your work begins to get more complicated there often is not a single correct way to proceed.
 
 Your turn
@@ -140,27 +140,27 @@ Set it up so that you can view all the teacher and department entries while read
 In the last exercise you were able to print out teachers who had particular department ids. The department field in the teachers table, if you recall (look at the teacher schema if you do not), is a foreign key, referencing the id column (which is a uniquely identifying primary key) in the departments table. You might imagine wanting to answer a question like "who are all the teachers in the 'cs' department", instead of "all the teachers in the department with an id of 1". In order to do this, you would first need to find out what the id field is for the department with the name 'cs', and then, with that id, ask for any of the teachers whose department foreign key equals the id you just retrieved.
 
 Thus we could first:
-
+```sql
 SELECT id FROM departments
   WHERE name = 'cs';
-
+```
 And then with our result, 1, issue a second query:
-
+```sql
 SELECT name FROM teachers
   WHERE department = 1;
-
+```
 The following is not legitimate SQL but represents what we would like to be able to do, namely, filter our second query by the results of the first:
-
+```sql
 SELECT name FROM teachers
   WHERE department = (SELECT id FROM departments
                        WHERE name = 'cs');
-
+```
 The above can be only slightly modified to be valid SQL. Review the syntax for IN above, you'll notice the use of ( and ), similar to our imaginary query above. In order to make this nested selection, simply use the IN command passing in a separate query as the set of possibilities to filter by. Thus:
-
+```sql
 SELECT name FROM teachers
   WHERE department IN (SELECT id FROM departments
                        WHERE name = 'cs');
-
+```
 **Your turn**
 * Display the name and id of all the teachers in the 'psy' department (should be pamela and sunny, with their respective ids)
 * Display the name of the department that 'sunny' teaches for (should be 'psy')
@@ -188,38 +188,38 @@ If you run SELECT * FROM departments, classes; you will see just this occur, ple
 Of course you don't have to select all columns (*). However, because you will be selecting from multiple tables, for each column you wish to select, you need to preface the column name with the table name. For example, SELECT departments.id, classes.id FROM departments, classes;.
 
 Use the same thought process from above to make a prediction about what the following queries will return. How many columns will there be? How many rows will there be? Run each of the queries to check your work.
+```sql
 SELECT departments.id, classes.id FROM departments, classes;
 SELECT students.*, teachers.name FROM students, teachers;
-
+```
 **Advanced Filter With Multi-Table SELECT**
 
 Recall above we used IN in conjunction with a subquery to answer the question "Who are all the teachers in the 'cs' department?" Let's use multi-table selection to answer the question in a different manner.
 
 Take a look at the results from the following query. If you're at all surprised by what you see, please revisit the previous section:
-
+```sql
 SELECT * FROM teachers, departments;
-
-
+```
 Since we are only interested in the "cs" department, let's trim this down a bit by only showing columns where the department name is "cs":
 
-
+```sql
 SELECT * FROM teachers, departments
   WHERE departments.name = "cs";
-
+```
 Given that we know the correct answer to our query is "fred" and "beth", can you identify what the rows containing "fred" and "beth" have in common with each other that would help us make a query that only gave us these 2 rows?
 
 You perhaps noticed that for the rows containing "fred" and "beth", the teachers.department column entry (which is a foreign key referencing a department.id) matches the departments.id column entry. Reflect on the meaning of a row where a foreign key matches the primary key that it references.
 
 Therefore:
-
+```sql
 SELECT * FROM teachers, departments
   WHERE departments.name = "cs" AND teachers.department = departments.id;
-
+```
 And to only return the name of the teachers, as was our original intent:
-
+```sql
 SELECT teachers.name FROM teachers, departments
   WHERE departments.name = "cs" AND teachers.department = departments.id;
-
+```
 **Your Turn**
 
 You already completed the following with subqueries, now do them without subqueries, using multiple table selection instead.
@@ -231,15 +231,15 @@ Display the name of the department that 'sunny' teaches for (should be 'psy')
 
 Selecting across multiple tables and then filtering based on the rows that have shared entries is known as an inner join. The following query, which is already familiar to you, is an inner join:
 
-
+```sql
 SELECT teachers.name FROM teachers, departments
   WHERE teachers.department = departments.id;
-
+```
 SQL provides a special syntax for inner joins. Using this syntax the above could be refactored as:
-
+```sql
 SELECT teachers.name FROM teachers INNER JOIN departments
   ON teachers.department = departments.id;
-
+```
 **Your Turn**
 
 * What is the difference between the return from the following two statements:
@@ -258,17 +258,17 @@ Inner joins are by far the most prevalent kind of joining that you will do. Ther
 The next most common kind of join is the left outer join (there are also right outer joins). The left outer join will return all the same information as an inner join, but will also return all entries from the first table in the query, even the ones that don't meet the ON condition.
 
 Run the following familiar query:
-
+```sql
 SELECT teachers.name FROM teachers INNER JOIN departments
   ON departments.name = "cs" AND teachers.department = departments.id;
-
+```
 Notice the difference when refactoring to use a LEFT OUTER join instead:
-
+```sql
 SELECT teachers.name FROM teachers LEFT OUTER JOIN departments
   ON departments.name = "cs" AND teachers.department = departments.id;
-```sql
+```
 Some RDBMS support other kinds of outer joins, but not SQLite. To do a right OUTER JOIN in SQLite, you just need to change the order of the tables in the query so that the one you want to be on the 'LEFT' is on the left:
-
+```sql
 SELECT teachers.name FROM departments LEFT OUTER JOIN teachers
   ON departments.name = "cs" AND teachers.department = departments.id;
 ```
