@@ -9,11 +9,13 @@ Assuming you are working on a JavaScript based tech stack, you will probably not
 All that said, it is important you have some small amount of exposure and experience with raw SQL, and this short series of exercises will expose you to some of the basics of writing raw SQL.
 
 **High Level Goals of this Mini-Sprint:**
+
 * Gain exposure to the basics of raw SQL syntax
 * Gain a small amount of experience reading and writing raw SQL
 * Gain a small amount of experience thinking about relational data, and wrestling with getting the kind of data you want out of a relational schema
 
 **SQLite**
+
 In this mini-sprint you will be using the SQLite RDBMS. SQLite is serverless, and while you don't need to understand all the implications of this, you should know that it will allow you to interact directly with the RDBMS with very little configuration, making it a good choice for our purpose of exposing you to basic SQL.
 
 Please remember that each RDBMS has its own specific implementation of SQL syntax and therefore that you may need to slightly modify some of what you learn here when working with another RDBMS like MySQL.
