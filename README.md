@@ -1,7 +1,7 @@
 # sqool
-This is a project I completed as a student at [hackreactor](http://hackreactor.com). This project was worked on with a pair.
 
-# SPRINT SQOOL: An Introduction to SQL
+
+# SQOOL: An Introduction to SQL
 SQL (Structured Query Language) is a programming language for working with relational data. Relational data is stored within Relational Database Management Systems (RDBMS) such as MySQL, Oracle, sqlite DB2 and more. Each of these RDBMS have their own unique spin on SQL syntax, so in your progression learning the language, you will always need to keep an eye out for minor syntax changes depending on which RDBMS you are using.
 
 Assuming you are working on a JavaScript based tech stack, you will probably not be doing a lot of writing raw SQL and/or interacting directly with some RDBMS. At the least you will be using already existing JavaScript libraries that allow you to write SQL statements inside your JavaScript, and most often you will use an ORM technology like Sequelize, which will provide you with a syntax for interacting with an RDBMS that looks and feels much more like JavaScript than SQL.
@@ -136,7 +136,7 @@ This also is correct and discloses the truth about SQL (which is true in most al
 * Display just the names of all the teachers whose id is NOT either 1, 2, or 4
 * Display just the names of all the teachers whose department is either 1 or 4
 
-**Using IN to compose subqueries** 
+**Using IN to compose subqueries**
 
 Set it up so that you can view all the teacher and department entries while reading this section.
 
@@ -170,7 +170,7 @@ SELECT name FROM teachers
 
 **Selecting from multiple tables**
 
-You can select from multiple tables in SQL with the following syntax : 
+You can select from multiple tables in SQL with the following syntax :
 ```javascript
 SELECT * FROM <table-1>, <table-2> [,<table-n>];.
 ```
